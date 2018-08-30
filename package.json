@@ -1,0 +1,24 @@
+{
+  "name": "fx-layout-vue",
+  "version": "1.0.0",
+  "description": "a suit of vue components to make it easier to layout with CSS flex",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csr632/fx-layout-vue.git"
+  },
+  "keywords": [
+    "vue",
+    "layout",
+    "flex"
+  ],
+  "author": "csr",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/csr632/fx-layout-vue/issues"
+  },
+  "homepage": "https://github.com/csr632/fx-layout-vue#readme"
+}
