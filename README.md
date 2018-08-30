@@ -1,4 +1,5 @@
-# Fx布局组件实现报告
+# fx-layout布局组件
+`fx-layout`是一套Vue组件，它是为了方便使用flex进行大量精细化布局而设计的。它能够减少使用者的输入、方便使用者在模板中调整常用的样式，并提供了一定的可扩展性。
 
 # 困难：
 页面中有大量表单控件和label，几乎每个控件都需要单独定制大小（min-width、max-width、width）、位置（margin-right、padding-left、display:flex、justify-content:center等），因此需要写**大量的布局代码**。
