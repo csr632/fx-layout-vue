@@ -1,8 +1,8 @@
 <script>
-import FxRow from "./FxRow";
+import FxBase from "./FxBase";
 export default {
   name: "FxCol",
-  extends: FxRow,
+  extends: FxBase,
   data() {
     return {
       defaultDir: "column",

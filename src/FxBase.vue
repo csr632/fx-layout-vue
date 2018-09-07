@@ -83,6 +83,30 @@ export default {
       type: String,
       default: undefined
     },
+    h: {
+      type: String,
+      default: undefined
+    },
+    ch: {
+      type: String,
+      default: undefined
+    },
+    mnh: {
+      type: String,
+      default: undefined
+    },
+    cmnh: {
+      type: String,
+      default: undefined
+    },
+    mxh: {
+      type: String,
+      default: undefined
+    },
+    cmxh: {
+      type: String,
+      default: undefined
+    },
     mt: {
       type: String,
       default: undefined
@@ -150,6 +174,17 @@ export default {
     lh: {
       type: String,
       default: undefined
+    },
+    // 如果rigid设为true，那么flex-grow和flex-shrink都为"0"（无弹性）
+    // 这个属性仅仅是为了方便和语义化而设计的
+    rigid: {
+      type: Boolean,
+      default: undefined
+    },
+    // 影响子组件FxItem的flexGrow和flexShrink
+    crigid: {
+      type: Boolean,
+      default: undefined
     }
   },
   data() {
@@ -171,6 +206,12 @@ export default {
       defaultMxw: "",
       defaultCmnw: "",
       defaultCmxw: "",
+      defaultH: "",
+      defaultCh: "",
+      defaultMnh: "",
+      defaultMxh: "",
+      defaultCmnh: "",
+      defaultCmxh: "",
       defaultMt: "",
       defaultMr: "",
       defaultMb: "",
@@ -187,7 +228,17 @@ export default {
       defaultCpr: "",
       defaultCpb: "",
       defaultCpl: "",
-      defaultLh: ""
+      defaultLh: "",
+      // 设置为undefined而不是false的原因：
+      // undefined的语义是“我不决定”。
+      // 一般来说，fallback(default)属性不应该说“我不决定”，
+      // 但是因为这个defaultCrigid之下还有defaultFg作为fallback(备胎)，(见FxBase的flexGrow方法)
+      // 所以“defaultCrigid不决定”意味着交给defaultFg来决定。
+      // 假设defaultCrigid设定了一个值，那么defaultFg将永远不会被用到。
+      // 见FxBase的flexGrow()代码
+      defaultCrigid: undefined,
+      // defaultRigid使用undefined的原因同上
+      defaultRigid: undefined
     };
   },
   computed: {
@@ -207,6 +258,9 @@ export default {
           width: this.width,
           "min-width": this.minWidth,
           "max-width": this.maxWidth,
+          height: this.height,
+          "min-height": this.minHeight,
+          "max-height": this.maxHeight,
           "margin-top": this.marginTop,
           "margin-right": this.marginRight,
           "margin-bottom": this.marginBottom,
@@ -261,10 +315,28 @@ export default {
       return this.ac !== undefined ? this.ac : this.defaultAc;
     },
     flexGrow() {
-      return this.fg !== undefined ? this.fg : this.defaultFg;
+      if (this.fg !== undefined) return this.fg;
+      if (this.computedRigid !== undefined)
+        return this.computedRigid ? "0" : "1";
+      if (this.$parent.computedCrigid !== undefined)
+        return this.$parent.computedCrigid ? "0" : "1";
+      return this.defaultFg;
     },
     flexShrink() {
-      return this.fs !== undefined ? this.fs : this.defaultFs;
+      if (this.fs !== undefined) return this.fs;
+      if (this.computedRigid !== undefined)
+        return this.computedRigid ? "0" : "1";
+      if (this.$parent.computedCrigid !== undefined)
+        return this.$parent.computedCrigid ? "0" : "1";
+      return this.defaultFs;
+    },
+    computedRigid() {
+      if (this.rigid !== undefined) return this.rigid;
+      return this.defaultRigid;
+    },
+    computedCrigid() {
+      if (this.crigid !== undefined) return this.crigid;
+      return this.defaultCrigid;
     },
     flexBasis() {
       return this.fb !== undefined ? this.fb : this.defaultFb;
@@ -289,6 +361,24 @@ export default {
       if (this.$parent.cmxw !== undefined) return this.$parent.cmxw;
       if (this.$parent.defaultCmxw) return this.$parent.defaultCmxw;
       if (this.defaultMxw) return this.defaultMxw;
+    },
+    height() {
+      if (this.h !== undefined) return this.h;
+      if (this.$parent.ch !== undefined) return this.$parent.ch;
+      if (this.$parent.defaultCh) return this.$parent.defaultCh;
+      if (this.defaultH) return this.defaultH;
+    },
+    minHeight() {
+      if (this.mnh !== undefined) return this.mnh;
+      if (this.$parent.cmnh !== undefined) return this.$parent.cmnh;
+      if (this.$parent.defaultCmnh) return this.$parent.defaultCmnh;
+      if (this.defaultMnh) return this.defaultMnh;
+    },
+    maxHeight() {
+      if (this.mxh !== undefined) return this.mxh;
+      if (this.$parent.cmxh !== undefined) return this.$parent.cmxh;
+      if (this.$parent.defaultCmxh) return this.$parent.defaultCmxh;
+      if (this.defaultMxh) return this.defaultMxh;
     },
     marginTop() {
       if (this.mt !== undefined) return this.mt;

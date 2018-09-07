@@ -1,6 +1,6 @@
 {
   "name": "fx-layout-vue",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "a suit of vue components to make it easier to layout with CSS flex",
   "main": "index.js",
   "scripts": {
