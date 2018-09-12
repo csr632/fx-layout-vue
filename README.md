@@ -44,9 +44,11 @@ Vue.use(FxLayout);
 
 ## 使用背景
 
-页面中有大量表单控件和 label，几乎每个控件都需要单独定制大小（min-width、max-width、width）、位置（margin-right、padding-left、display:flex、justify-content:center 等），因此需要写**大量的布局代码**。
+页面中有大量表单控件和 label，几乎每个控件都需要**单独定制**大小（min-width、max-width、width）、位置（margin-right、padding-left 等）、flex 属性(justify-content、align-item 等)，因此需要写**大量的布局代码**。
 
-[iview 的布局组件](https://www.iviewui.com/components/grid#API)只是提供了 2 个简单的 flex 容器（`Row`和`Col`），进行大粒度的布局使用它已经足够，但是当需要进行**精细化布局**的时候，使用它仍然无法简化布局代码的书写。
+为什么不直接使用`class name`+`CSS rule`的模式来定义样式？当有很多元素都需要设置大小、位置、flex 属性的时候（比如说，有几十个不同的表单控件需要布局），几乎需要为每一个元素都声明一套`class`+`CSS rule`（该场景下，**能共用的 class 很少，每个元素都需要调整到需要的大小、位置、flex 属性**）。几十个元素都这样做下来，代码量会迅速增长，并且调整样式也不方便（需要在 template 和 css 之间来回切换）。
+
+[iview 的布局组件](https://www.iviewui.com/components/grid#API)有不错的布局功能，但它只提供了 2 个简单的 flex 容器（`Row`和`Col`），进行大粒度的布局使用它已经足够，但是当需要进行**精细化布局**的时候，使用它仍然无法简化布局代码的书写。
 
 因此我开发了一套布局组件 Fx，它蕴含了我在进行精细化布局实践中[总结的经验](https://segmentfault.com/a/1190000016199506)。
 
