@@ -42,6 +42,8 @@ Vue.use(FxLayout);
 </template>
 ```
 
+**完整的示例项目在`/examples`。里面还包含了各种特性的使用示例。**
+
 ## 使用背景
 
 页面中有大量表单控件和 label，几乎每个控件都需要**单独定制**大小（min-width、max-width、width）、位置（margin-right、padding-left 等）、flex 属性(justify-content、align-item 等)，因此需要写**大量的布局代码**。
